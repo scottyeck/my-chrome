@@ -1,23 +1,28 @@
 (() => {
   // Constants for each service
   const services = {
-    codecommit: "codecommit"
+    pocket: "pocket"
   };
 
   // URL tokens corresponding to each service
-  const urlTokens = {
-    [services.codecommit]: "codecommit"
+  const urlPrefixes = {
+    [services.pocket]: "https://getpocket.com"
   };
 
+  // Translate each of the prefixes above into a regex matcher
+  // starting at the beginning of the string.
+  const urlRegexes = Object.keys(urlPrefixes).map(
+    serviceId => new RegExp(`^${services[serviceId]}`)
+  );
+
   /**
-   * Gets whether the provided URL is part of the specified AWS service.
+   * Gets whether the provided URL is part of the specified service.
    *
    * @param {String} service
    * @param {String} url
    * @returns {Boolean}
    */
-  const getIsServiceUrl = (service, url) =>
-    url.split("/").indexOf(urlTokens[service]) > -1;
+  const getIsServiceUrl = (service, url) => urlRegexes[service].test(url);
 
   /**
    * Gets the current service based on the url
@@ -28,23 +33,28 @@
   const getCurrentService = url =>
     Object.values(services).find(service => getIsServiceUrl(service, url));
 
-  /**
-   * Adds a classname to the body of the document that specifies
-   * which AWS service is currently in use.
-   *
-   * @param {String} service
-   */
-  const updateBodyClassNameByService = service => {
-    document
-      .getElementsByTagName("body")[0]
-      .classList.add(`pretty-aws-console-${service}`);
+  const handlePocket = () => {
+    window.alert("THIS IS POCKET");
+  };
+
+  const serviceHandlers = {
+    [services.pocket]: handlePocket
+  };
+
+  const handleService = service => {
+    if (serviceHandlers[service]) {
+      console.success(`Handling service "${service}"`);
+      serviceHandlers[service]();
+    } else {
+      console.info(`No handled service detected.`);
+    }
   };
 
   /**
-   * Gets the current service and updates the document accordingly.
+   * Gets the current service and executes a handler accordingly.
    */
   const apply = () => {
-    updateBodyClassNameByService(getCurrentService(window.location.href));
+    handleService(getCurrentService(window.location.href));
   };
 
   apply();

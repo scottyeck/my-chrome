@@ -1,15 +1,14 @@
 {
   "manifest_version": 2,
 
-  "name": "Pretty AWS Console",
+  "name": "my-chrome",
   "version": "0.0.1",
-  "description": "Prettifies your AWS Console",
+  "description": "Custom website behavior in chrome",
 
   "content_scripts": [
     {
-      "css": ["dist/styles.css"],
       "js": ["dist/index.js"],
-      "matches": ["https://console.aws.amazon.com/codecommit/*"]
+      "matches": ["https://getpocket.com/*"]
     }
   ]
 }
