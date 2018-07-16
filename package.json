@@ -1,0 +1,19 @@
+{
+  "name": "my-chrome",
+  "version": "0.0.1",
+  "description": "An extension supporting custom JS ops with chrome",
+  "main": "n/a",
+  "repository": "git@github.com:scottyeck/my-chrome.git",
+  "author": "Scotty Eckenthal <scott.eckenthal@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "app-root-dir": "1.0.2",
+    "babel": "6.23.0",
+    "babel-cli": "6.26.0",
+    "babel-preset-env": "1.7.0",
+    "postcss": "6.0.22",
+    "postcss-import": "11.1.0",
+    "precss": "3.1.2",
+    "yargs": "11.0.0"
+  }
+}
