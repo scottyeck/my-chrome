@@ -33,14 +33,26 @@
   const getCurrentService = url =>
     Object.values(services).find(service => getIsServiceUrl(service, url));
 
+  /**
+   * Pocket service handler. Hides ads in the queue bc it
+   * makes the queue hard to read.
+   */
   const handlePocket = () => {
-    window.alert("THIS IS POCKET");
+    const queue = document.getElementById("queue");
+    // TODO: Actually write the handler.
   };
 
+  // Maps services to their handlers.
   const serviceHandlers = {
     [services.pocket]: handlePocket
   };
 
+  /**
+   * Given a service, invokes its corresponding handler
+   * if it exists.
+   *
+   * @param {String} service
+   */
   const handleService = service => {
     if (serviceHandlers[service]) {
       console.success(`Handling service "${service}"`);
@@ -51,11 +63,12 @@
   };
 
   /**
-   * Gets the current service and executes a handler accordingly.
+   * Gets the current service and hands off to handler.
    */
   const apply = () => {
     handleService(getCurrentService(window.location.href));
   };
 
+  // Let's do this.
   apply();
 })();
