@@ -1,12 +1,14 @@
 (() => {
   // Constants for each service
   const services = {
-    pocket: "pocket"
+    pocket: "pocket",
+    linkedIn: "linkedIn"
   };
 
   // URL tokens corresponding to each service
   const urlPrefixes = {
-    [services.pocket]: "https://getpocket.com"
+    [services.pocket]: "https://getpocket.com",
+    [services.linkedIn]: "https://www.linkedin.com"
   };
 
   // Translate each of the prefixes above into a regex matcher
@@ -37,6 +39,13 @@
   const getCurrentService = url =>
     Object.values(services).find(service => getIsServiceUrl(service, url));
 
+  const handleLinkedIn = () => {
+    const feed = document.querySelector('[role="main"]');
+    feed.childNodes.forEach(node => {
+      node.remove();
+    });
+  };
+
   /**
    * Pocket service handler. Hides ads in the queue bc it
    * makes the queue hard to read.
@@ -48,7 +57,8 @@
 
   // Maps services to their handlers.
   const serviceHandlers = {
-    [services.pocket]: handlePocket
+    [services.pocket]: handlePocket,
+    [services.linkedIn]: handleLinkedIn
   };
 
   /**
@@ -59,7 +69,7 @@
    */
   const handleService = service => {
     if (serviceHandlers[service]) {
-      console.success(`Handling service "${service}"`);
+      console.log(`Handling service "${service}"`);
       serviceHandlers[service]();
     } else {
       console.info(`No handled service detected.`);
