@@ -13,13 +13,10 @@
 
   // Translate each of the prefixes above into a regex matcher
   // starting at the beginning of the string.
-  const createUrlRegexes = prefixes =>
-    Object.keys(prefixes).reduce((acc, key) => {
-      acc[key] = new RegExp(`^${prefixes[key]}`);
-      return acc;
-    }, {});
-
-  const urlRegexes = createUrlRegexes(urlPrefixes);
+  const urlRegexes = Object.keys(urlPrefixes).reduce((acc, key) => {
+    acc[key] = new RegExp(`^${urlPrefixes[key]}`);
+    return acc;
+  }, {});
 
   /**
    * Gets whether the provided URL is part of the specified service.
