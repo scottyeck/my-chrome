@@ -39,6 +39,10 @@
   const getCurrentService = url =>
     Object.values(services).find(service => getIsServiceUrl(service, url));
 
+  /**
+   * Linkedin service handler. Hides the main news feed a la Facebook News
+   * Feed Eradicator so I don't get sucked in.
+   */
   const handleLinkedIn = () => {
     const feed = document.querySelector('[role="main"]');
     feed.childNodes.forEach(node => {
